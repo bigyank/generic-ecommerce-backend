@@ -1,7 +1,13 @@
-const express = require('express');
-const products = require('./products');
-require('dotenv').config();
+import express from 'express';
+import dotenv from 'dotenv';
+import colors from 'colors';
+import connectToDB from './database/db.js';
+import products from './products.js';
 
+dotenv.config();
+
+// Connect to the database
+connectToDB();
 const app = express();
 const PORT = process.env.PORT;
 
@@ -19,4 +25,4 @@ app.get('/api/products/:id', (req, res) => {
   res.status(200).json(product);
 });
 
-app.listen(PORT, console.log(`server is running on port ${PORT}`));
+app.listen(PORT, console.log(`server is running on port ${PORT}`.green.bold));
