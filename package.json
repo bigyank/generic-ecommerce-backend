@@ -17,7 +17,9 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "helmet": "^4.1.1",
     "http-errors": "github:jshttp/http-errors#e11f87d",
-    "mongoose": "^5.10.10"
+    "mongoose": "^5.10.10",
+    "morgan": "^1.10.0"
   }
 }

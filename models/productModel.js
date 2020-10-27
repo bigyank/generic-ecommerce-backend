@@ -80,6 +80,23 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+const cleanDatabaseFields = (schemaName) => {
+  /*
+   * replaces _id with id
+   * deletes __v before sending
+   */
+  schemaName.set('toJSON', {
+    virtuals: true,
+    transform: (_document, returnedObject) => {
+      delete returnedObject._id;
+      delete returnedObject.__v;
+    },
+  });
+};
+
+cleanDatabaseFields(productSchema);
+cleanDatabaseFields(reviewSchema);
+
 const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;
