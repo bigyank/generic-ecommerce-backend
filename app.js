@@ -11,6 +11,7 @@ const {
   unknownEndPointHandler,
   errorHandler,
 } = require('./utils/errorHandler.js');
+const limiter = require('./utils/rateLimiter');
 
 // Connect to the database
 connectToDB();
@@ -25,6 +26,9 @@ app.use(morgan('tiny'));
 
 // use secure headers
 app.use(helmet());
+
+//  apply to all requests
+app.use(limiter);
 
 app.use('/api/products', productRoute);
 
