@@ -1,35 +1,37 @@
 {
-  "name": "ecommerce-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "import:data": "node ./seeder.js",
-    "destroy:data": "node ./seeder.js -d"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "colors": "^1.4.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-async-errors": "^3.1.1",
-    "express-rate-limit": "^5.1.3",
-    "helmet": "^4.1.1",
-    "http-errors": "github:jshttp/http-errors#e11f87d",
-    "mongoose": "^5.10.10",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "eslint": "^7.12.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-security": "^1.4.0",
-    "prettier": "2.1.2"
-  }
+    "name": "ecommerce-backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=production node index.js",
+        "dev": "cross-env NODE_ENV=development nodemon index.js",
+        "import:data": "node ./seeder.js",
+        "destroy:data": "node ./seeder.js -d"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "colors": "^1.4.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "express-rate-limit": "^5.1.3",
+        "helmet": "^4.1.1",
+        "http-errors": "github:jshttp/http-errors#e11f87d",
+        "mongoose": "^5.10.10",
+        "morgan": "^1.10.0"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.2",
+        "eslint": "^7.12.1",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-config-prettier": "^6.14.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-security": "^1.4.0",
+        "prettier": "2.1.2"
+    }
 }
