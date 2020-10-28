@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const compression = require('compression');
 require('dotenv').config();
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
@@ -31,6 +32,9 @@ app.use(helmet());
 
 //  apply to all requests
 app.use(limiter);
+
+// compress all responses
+app.use(compression());
 
 app.use('/api/products', productRoute);
 
