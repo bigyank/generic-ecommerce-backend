@@ -7,7 +7,11 @@ const colors = require('colors');
 require('express-async-errors');
 const morgan = require('morgan');
 
+// routes
 const productRoute = require('./routes/productRoutes');
+const userRoute = require('./routes/userRoutes');
+
+// utils
 const {
     unknownEndPointHandler,
     errorHandler,
@@ -20,7 +24,6 @@ const app = express();
  * parse application/json
  * limit req size to 5kb
  */
-
 app.use(express.json({ limit: '5kb' }));
 
 // logger
@@ -35,6 +38,7 @@ app.use(limiter);
 // compress all responses
 app.use(compression());
 
+app.use('/api/user', userRoute);
 app.use('/api/products', productRoute);
 
 app.use(unknownEndPointHandler);

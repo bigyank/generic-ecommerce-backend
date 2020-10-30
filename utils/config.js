@@ -1,7 +1,7 @@
-const { MONGO_URI } = process.env;
-const { PORT } = process.env;
+const { MONGO_URI, PORT, JWT_SECRET } = process.env;
 
 module.exports = {
     MONGO_URI,
     PORT,
+    JWT_SECRET,
 };
