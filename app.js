@@ -6,6 +6,7 @@ require('dotenv').config();
 const colors = require('colors');
 require('express-async-errors');
 const morgan = require('morgan');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // routes
 const productRoute = require('./routes/productRoutes');
@@ -25,6 +26,9 @@ const app = express();
  * limit req size to 5kb
  */
 app.use(express.json({ limit: '5kb' }));
+
+// no-sql prevention
+app.use(mongoSanitize());
 
 // logger
 app.use(morgan('tiny'));
