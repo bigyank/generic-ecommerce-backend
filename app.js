@@ -7,7 +7,6 @@ const colors = require('colors');
 require('express-async-errors');
 const morgan = require('morgan');
 
-const connectToDB = require('./database/db');
 const productRoute = require('./routes/productRoutes');
 const {
     unknownEndPointHandler,
@@ -15,13 +14,13 @@ const {
 } = require('./utils/errorHandler.js');
 const limiter = require('./utils/rateLimiter');
 
-// Connect to the database
-connectToDB();
-
 const app = express();
 
-// parse application/json
-// limit req size to 5kb
+/**
+ * parse application/json
+ * limit req size to 5kb
+ */
+
 app.use(express.json({ limit: '5kb' }));
 
 // logger
