@@ -39,6 +39,13 @@ userSchema.methods.verifyPassword = async function verifyPassword(
     return bcrypt.compare(enteredPassword, this.password);
 };
 
+userSchema.pre('save', async function encryptPassword(next) {
+    if (!this.isModified('password')) return next();
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
 const cleanDatabaseFields = (schemaName) => {
     /*
      * replaces _id with id

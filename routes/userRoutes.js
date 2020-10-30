@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/login').post(loginUser);
 
-// router.route('/signup').post(signupUser);
+router.route('/signup').post(signupUser);
 
 router.route('/profile').get(authorize, getProfile);
 

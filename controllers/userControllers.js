@@ -21,12 +21,38 @@ const loginUser = async (req, res) => {
     throw createError(401, 'email or password mismatch');
 };
 
-// const signupUser = async (req, res) => {
-//     const { email, password } = req.body;
-// };
+/**
+ *
+ * @desc Signup user
+ * @route GET /api/user/signup
+ * @access public
+ */
+const signupUser = async (req, res) => {
+    const { name, email, password } = req.body;
+    const userExists = await User.findOne({ email });
 
+    if (userExists) {
+        throw createError(400, 'User Already Exists');
+    }
+
+    try {
+        const user = await User.create({ name, email, password });
+        const JWT = generateJWT(user.id);
+        const userToSend = { ...user.toJSON(), token: JWT };
+        res.status(201).send(userToSend);
+    } catch (error) {
+        throw createError(400, 'Invalid User Data');
+    }
+};
+
+/**
+ *
+ * @desc get user profile
+ * @route GET /api/user/profile
+ * @access private
+ */
 const getProfile = (req, res) => {
     res.status(200).send(req.user);
 };
 
-module.exports = { loginUser, getProfile };
+module.exports = { loginUser, getProfile, signupUser };
