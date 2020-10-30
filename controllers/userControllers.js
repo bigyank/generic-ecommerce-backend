@@ -21,4 +21,12 @@ const loginUser = async (req, res) => {
     throw createError(401, 'email or password mismatch');
 };
 
-module.exports = { loginUser };
+// const signupUser = async (req, res) => {
+//     const { email, password } = req.body;
+// };
+
+const getProfile = (req, res) => {
+    res.status(200).send(req.user);
+};
+
+module.exports = { loginUser, getProfile };

@@ -7,7 +7,7 @@ const Product = require('../models/productModel');
  * @route GET /api/products
  * @access public
  */
-const getProducts = async (_req, res) => {
+const getProducts = async (req, res) => {
     const allProducts = await Product.find();
     res.status(200).json(allProducts);
 };
