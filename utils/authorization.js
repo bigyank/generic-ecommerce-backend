@@ -12,8 +12,11 @@ const authorize = async (req, _res, next) => {
             const token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, JWT_SECRET);
 
-            req.user = await User.findById(decoded.id);
+            const user = await User.findById(decoded.id);
 
+            if (!user) throw createError(401, 'Not Authorized');
+
+            req.user = user;
             return next();
         } catch (error) {
             throw createError(401, 'Not Authorized');

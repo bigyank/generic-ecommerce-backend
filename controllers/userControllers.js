@@ -55,4 +55,27 @@ const getProfile = (req, res) => {
     res.status(200).send(req.user);
 };
 
-module.exports = { loginUser, getProfile, signupUser };
+/**
+ *
+ * @desc update user profile
+ * @route PUT /api/user/profile
+ * @access private
+ */
+const updateProfile = async (req, res) => {
+    const { user, body } = req;
+
+    try {
+        user.name = body.name || user.name;
+        user.email = body.email || user.email;
+        if (body.password) {
+            user.password = body.password;
+        }
+
+        const updatedUser = await user.save();
+        res.send(updatedUser);
+    } catch (error) {
+        throw createError(404, 'User Not Found');
+    }
+};
+
+module.exports = { loginUser, getProfile, signupUser, updateProfile };

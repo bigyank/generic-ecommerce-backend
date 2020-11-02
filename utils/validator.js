@@ -1,27 +1,52 @@
 const { Segments, Joi } = require('celebrate');
 
+const formFeilds = {
+    email: Joi.string().email(),
+    password: Joi.string().required(),
+};
+
+const authHeader = {
+    authorization: Joi.string().required(),
+};
+
 const loginValidator = {
     [Segments.BODY]: Joi.object().keys({
-        email: Joi.string().email(),
-        password: Joi.string().required(),
+        ...formFeilds,
     }),
 };
 
 const signupValidator = {
     [Segments.BODY]: Joi.object().keys({
-        email: Joi.string().email(),
-        password: Joi.string().required(),
         name: Joi.string().required(),
+        ...formFeilds,
     }),
 };
 
-// only validate authorization headers
+// feilds other that authorization are unknown
 const getProfileValidator = {
     [Segments.HEADERS]: Joi.object()
         .keys({
-            authorization: Joi.string(),
+            ...authHeader,
         })
         .unknown(),
 };
 
-module.exports = { loginValidator, signupValidator, getProfileValidator };
+const updateProfileValidator = {
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string(),
+        email: Joi.string().email(),
+        password: Joi.string(),
+    }),
+    [Segments.HEADERS]: Joi.object()
+        .keys({
+            ...authHeader,
+        })
+        .unknown(),
+};
+
+module.exports = {
+    loginValidator,
+    signupValidator,
+    getProfileValidator,
+    updateProfileValidator,
+};
