@@ -12,6 +12,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 // routes
 const productRoute = require('./routes/productRoutes');
 const userRoute = require('./routes/userRoutes');
+const orderRoute = require('./routes/orderRoutes');
 
 // utils
 const {
@@ -45,6 +46,7 @@ app.use(compression());
 
 app.use('/api/user', userRoute);
 app.use('/api/products', productRoute);
+app.use('/api/order', orderRoute);
 
 app.use(unknownEndPointHandler);
 // celebrate errors
