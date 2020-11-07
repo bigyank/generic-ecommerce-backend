@@ -78,6 +78,11 @@ const orderSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
+        itemsPrice: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
         totalPrice: {
             type: Number,
             required: true,
@@ -104,6 +109,22 @@ const orderSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
+
+const cleanDatabaseFields = (schemaName) => {
+    /*
+     * replaces _id with id
+     * deletes __v before sending
+     */
+    schemaName.set('toJSON', {
+        virtuals: true,
+        transform: (_document, returnedObject) => {
+            delete returnedObject._id;
+            delete returnedObject.__v;
+        },
+    });
+};
+
+cleanDatabaseFields(orderSchema);
 
 const Order = mongoose.model('Order', orderSchema);
 

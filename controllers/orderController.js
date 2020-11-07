@@ -13,8 +13,8 @@ const addOrderItems = async (req, res) => {
         orderItems,
         shippingAddress,
         paymentMethod,
-        itemsPrice,
         taxPrice,
+        itemsPrice,
         shippingPrice,
         totalPrice,
     } = req.body;
@@ -28,9 +28,9 @@ const addOrderItems = async (req, res) => {
         orderItems,
         shippingAddress,
         paymentMethod,
-        itemsPrice,
         taxPrice,
         shippingPrice,
+        itemsPrice,
         totalPrice,
     });
 

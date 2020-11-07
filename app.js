@@ -46,7 +46,7 @@ app.use(compression());
 
 app.use('/api/user', userRoute);
 app.use('/api/products', productRoute);
-app.use('/api/order', orderRoute);
+app.use('/api/orders', orderRoute);
 
 app.use(unknownEndPointHandler);
 // celebrate errors
