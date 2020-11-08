@@ -38,4 +38,19 @@ const addOrderItems = async (req, res) => {
     res.status(201).json(createdOrder);
 };
 
-module.exports = { addOrderItems };
+/**
+ *
+ * @desc Get order by ID
+ * @route POST /api/orders/:id
+ * @access private
+ */
+const getOrderById = async (req, res) => {
+    const { id } = req;
+    const order = await Order.findById(id).populate('user', 'name', 'email');
+
+    if (!order) throw createError(404, 'Order not found');
+
+    res.status(200).send(order);
+};
+
+module.exports = { addOrderItems, getOrderById };
