@@ -81,4 +81,23 @@ const updateOrderToPaid = async (req, res) => {
     res.status(200).send(updatedOrder);
 };
 
-module.exports = { addOrderItems, getOrderById, updateOrderToPaid };
+/**
+ *
+ * @desc GET logged in user orders
+ * @route GET /api/orders/myorders
+ * @access private
+ */
+const getUserOrder = async (req, res) => {
+    const orders = await Order.find({ user: req.user.id });
+
+    if (!orders) throw createError(404, 'Order not found');
+
+    res.send(orders);
+};
+
+module.exports = {
+    addOrderItems,
+    getOrderById,
+    updateOrderToPaid,
+    getUserOrder,
+};

@@ -5,8 +5,9 @@ const {
     signupUser,
     getProfile,
     updateProfile,
+    getUsers,
 } = require('../controllers/userControllers');
-const authorize = require('../utils/authorization');
+const { authorize, isAdmin } = require('../utils/authorization');
 const {
     loginValidator,
     signupValidator,
@@ -24,5 +25,8 @@ router
     .route('/profile')
     .get(celebrate(getProfileValidator), authorize, getProfile)
     .put(celebrate(updateProfileValidator), authorize, updateProfile);
+
+// admin route
+router.route('/all').get(authorize, isAdmin, getUsers);
 
 module.exports = router;

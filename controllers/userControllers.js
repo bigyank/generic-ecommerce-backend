@@ -78,4 +78,15 @@ const updateProfile = async (req, res) => {
     }
 };
 
-module.exports = { loginUser, getProfile, signupUser, updateProfile };
+/**
+ *
+ * @desc get all users
+ * @route GET /api/user/all
+ * @access private
+ */
+const getUsers = async (_req, res) => {
+    const users = await User.find({});
+    res.status(200).send(users);
+};
+
+module.exports = { loginUser, getProfile, signupUser, updateProfile, getUsers };

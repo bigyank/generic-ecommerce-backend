@@ -26,4 +26,12 @@ const authorize = async (req, _res, next) => {
     throw createError(401, 'Not Authorized');
 };
 
-module.exports = authorize;
+const isAdmin = (req, _res, next) => {
+    if (req.user && req.user.isAdmin) {
+        return next();
+    }
+
+    throw createError(401, 'Not Authorized');
+};
+
+module.exports = { authorize, isAdmin };
