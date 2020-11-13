@@ -27,4 +27,16 @@ const getProductById = async (req, res) => {
     res.status(200).json(product);
 };
 
-module.exports = { getProducts, getProductById };
+/**
+ *
+ * @desc Delete a product
+ * @route DELETE /api/products/:id
+ * @access private
+ */
+const deleteProduct = async (req, res) => {
+    const { id } = req.params;
+    await Product.findByIdAndDelete(id);
+    res.sendStatus(204);
+};
+
+module.exports = { getProducts, getProductById, deleteProduct };

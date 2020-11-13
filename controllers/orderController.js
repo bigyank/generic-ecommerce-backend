@@ -95,9 +95,45 @@ const getUserOrder = async (req, res) => {
     res.send(orders);
 };
 
+/**
+ *
+ * @desc GET all orders
+ * @route GET /api/orders
+ * @access private
+ */
+const getAllOrder = async (_req, res) => {
+    const orders = await Order.find({}).populate('user', 'id name');
+
+    if (!orders) throw createError(404, 'Order not found');
+
+    res.send(orders);
+};
+
+/**
+ *
+ * @desc Update order to delivered
+ * @route GET /api/orders/:id/deliver
+ * @access private
+ */
+
+const updateOrderToDelivered = async (req, res) => {
+    const { id } = req.params;
+    const order = await Order.findById(id);
+
+    if (!order) throw createError(404, 'Order not found');
+
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.status(200).send(updatedOrder);
+};
+
 module.exports = {
     addOrderItems,
     getOrderById,
     updateOrderToPaid,
     getUserOrder,
+    getAllOrder,
+    updateOrderToDelivered,
 };

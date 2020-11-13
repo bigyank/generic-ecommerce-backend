@@ -97,7 +97,6 @@ const getUsers = async (_req, res) => {
  */
 const deleteUser = async (req, res) => {
     const { id } = req.params;
-    console.log(id);
     await User.findByIdAndDelete(id);
     res.sendStatus(204);
 };

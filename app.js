@@ -2,7 +2,6 @@ const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
 require('dotenv').config();
-const { errors } = require('celebrate');
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 require('express-async-errors');
@@ -49,8 +48,6 @@ app.use('/api/products', productRoute);
 app.use('/api/orders', orderRoute);
 
 app.use(unknownEndPointHandler);
-// celebrate errors
-// app.use(errors());
 app.use(errorHandler);
 
 module.exports = app;
