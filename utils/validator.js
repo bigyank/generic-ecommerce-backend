@@ -23,7 +23,7 @@ const signupValidator = {
 };
 
 // feilds other that authorization are unknown
-const getProfileValidator = {
+const headerValidator = {
     [Segments.HEADERS]: Joi.object()
         .keys({
             ...authHeader,
@@ -81,10 +81,24 @@ const makeOrderValidator = {
         .unknown(),
 };
 
+const userUpdateAdmin = {
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().optional(),
+        email: Joi.string().email().optional(),
+        isAdmin: Joi.boolean().required(),
+    }),
+    [Segments.HEADERS]: Joi.object()
+        .keys({
+            ...authHeader,
+        })
+        .unknown(),
+};
+
 module.exports = {
     loginValidator,
     signupValidator,
-    getProfileValidator,
+    headerValidator,
     updateProfileValidator,
     makeOrderValidator,
+    userUpdateAdmin,
 };

@@ -57,7 +57,7 @@ const cleanDatabaseFields = (schemaName) => {
             delete returnedObject._id;
             delete returnedObject.__v;
             delete returnedObject.password;
-            delete returnedObject.isAdmin;
+            if (!returnedObject.isAdmin) delete returnedObject.isAdmin;
         },
     });
 };

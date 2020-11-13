@@ -6,13 +6,17 @@ const {
     getProfile,
     updateProfile,
     getUsers,
+    deleteUser,
+    updateUser,
+    getUserById,
 } = require('../controllers/userControllers');
 const { authorize, isAdmin } = require('../utils/authorization');
 const {
     loginValidator,
     signupValidator,
-    getProfileValidator,
+    headerValidator,
     updateProfileValidator,
+    userUpdateAdmin,
 } = require('../utils/validator');
 
 const router = express.Router();
@@ -23,10 +27,16 @@ router.route('/signup').post(celebrate(signupValidator), signupUser);
 
 router
     .route('/profile')
-    .get(celebrate(getProfileValidator), authorize, getProfile)
+    .get(celebrate(headerValidator), authorize, getProfile)
     .put(celebrate(updateProfileValidator), authorize, updateProfile);
 
 // admin route
 router.route('/all').get(authorize, isAdmin, getUsers);
+
+router
+    .route('/:id')
+    .delete(celebrate(headerValidator), authorize, isAdmin, deleteUser)
+    .get(celebrate(headerValidator), authorize, isAdmin, getUserById)
+    .put(celebrate(userUpdateAdmin), authorize, isAdmin, updateUser);
 
 module.exports = router;
