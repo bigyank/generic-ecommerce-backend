@@ -26,7 +26,8 @@
         "http-errors": "github:jshttp/http-errors#e11f87d",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.10.10",
-        "morgan": "^1.10.0"
+        "morgan": "^1.10.0",
+        "multer": "^1.4.2"
     },
     "devDependencies": {
         "cross-env": "^7.0.2",

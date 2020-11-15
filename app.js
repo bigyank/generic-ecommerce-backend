@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
@@ -12,6 +13,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const productRoute = require('./routes/productRoutes');
 const userRoute = require('./routes/userRoutes');
 const orderRoute = require('./routes/orderRoutes');
+const uploadRoute = require('./routes/uploadRoutes');
 
 // utils
 const {
@@ -46,6 +48,9 @@ app.use(compression());
 app.use('/api/user', userRoute);
 app.use('/api/products', productRoute);
 app.use('/api/orders', orderRoute);
+app.use('/api/upload', uploadRoute);
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(unknownEndPointHandler);
 app.use(errorHandler);
