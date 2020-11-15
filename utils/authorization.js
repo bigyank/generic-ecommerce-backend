@@ -19,6 +19,8 @@ const authorize = async (req, _res, next) => {
             req.user = user;
             return next();
         } catch (error) {
+            if (error.name === 'TokenExpiredError')
+                throw createError(401, 'token expired');
             throw createError(401, 'Not Authorized');
         }
     }

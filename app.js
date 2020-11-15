@@ -32,7 +32,7 @@ app.use(express.json({ limit: '5kb' }));
 app.use(mongoSanitize());
 
 // logger
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 
 // use secure headers
 app.use(helmet());

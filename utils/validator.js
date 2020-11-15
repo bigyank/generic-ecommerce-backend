@@ -94,6 +94,23 @@ const userUpdateAdmin = {
         .unknown(),
 };
 
+const updateProductAdmin = {
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        price: Joi.number().required(),
+        description: Joi.string().required(),
+        image: Joi.string().required(),
+        brand: Joi.string().required(),
+        category: Joi.string().required(),
+        countInStock: Joi.number().required(),
+    }),
+    [Segments.HEADERS]: Joi.object()
+        .keys({
+            ...authHeader,
+        })
+        .unknown(),
+};
+
 module.exports = {
     loginValidator,
     signupValidator,
@@ -101,4 +118,5 @@ module.exports = {
     updateProfileValidator,
     makeOrderValidator,
     userUpdateAdmin,
+    updateProductAdmin,
 };

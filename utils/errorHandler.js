@@ -15,7 +15,6 @@ const errorHandler = (error, _req, res, next) => {
     }
 
     if (isCelebrateError(error)) {
-        console.error(error);
         return res.status(400).json({ message: 'invalid user data' });
     }
 
