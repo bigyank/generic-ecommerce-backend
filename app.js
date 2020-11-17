@@ -34,7 +34,9 @@ app.use(express.json({ limit: '5kb' }));
 app.use(mongoSanitize());
 
 // logger
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
 
 // use secure headers
 app.use(helmet());

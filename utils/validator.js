@@ -111,6 +111,18 @@ const updateProductAdmin = {
         .unknown(),
 };
 
+const createReviewValidator = {
+    [Segments.BODY]: Joi.object().keys({
+        rating: Joi.number().required(),
+        comment: Joi.string().required(),
+    }),
+    [Segments.HEADERS]: Joi.object()
+        .keys({
+            ...authHeader,
+        })
+        .unknown(),
+};
+
 module.exports = {
     loginValidator,
     signupValidator,
@@ -119,4 +131,5 @@ module.exports = {
     makeOrderValidator,
     userUpdateAdmin,
     updateProductAdmin,
+    createReviewValidator,
 };

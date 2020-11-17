@@ -6,9 +6,14 @@ const {
     deleteProduct,
     createProduct,
     updateProduct,
+    createReview,
 } = require('../controllers/productControllers');
 const { authorize, isAdmin } = require('../utils/authorization');
-const { headerValidator, updateProductAdmin } = require('../utils/validator');
+const {
+    headerValidator,
+    updateProductAdmin,
+    createReviewValidator,
+} = require('../utils/validator');
 
 const router = express.Router();
 
@@ -16,6 +21,10 @@ router
     .route('/')
     .get(getProducts)
     .post(celebrate(headerValidator), authorize, isAdmin, createProduct);
+
+router
+    .route('/:id/reviews')
+    .post(celebrate(createReviewValidator), authorize, createReview);
 
 router
     .route('/:id')
