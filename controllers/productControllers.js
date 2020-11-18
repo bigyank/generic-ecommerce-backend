@@ -8,8 +8,29 @@ const Product = require('../models/productModel');
  * @access public
  */
 const getProducts = async (req, res) => {
-    const allProducts = await Product.find();
-    res.status(200).json(allProducts);
+    const pageSize = 10;
+    const page = Number(req.query.pageNumber) || 1;
+
+    const keyword = req.query.keyword
+        ? {
+              name: {
+                  $regex: req.query.keyword,
+                  $options: 'i',
+              },
+          }
+        : {};
+
+    const count = await Product.countDocuments({ ...keyword });
+
+    const products = await Product.find({ ...keyword })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+
+    res.status(200).json({
+        products,
+        page,
+        pages: Math.ceil(count / pageSize),
+    });
 };
 
 /**
@@ -136,6 +157,17 @@ const createReview = async (req, res) => {
     res.status(201).send({ message: 'Review added' });
 };
 
+/**
+ *
+ * @desc get top rated products
+ * @route GET /api/products/top
+ * @access public
+ */
+const getTopProducts = async (req, res) => {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+    res.send(products);
+};
+
 module.exports = {
     getProducts,
     getProductById,
@@ -143,4 +175,5 @@ module.exports = {
     createProduct,
     updateProduct,
     createReview,
+    getTopProducts,
 };

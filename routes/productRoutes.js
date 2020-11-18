@@ -7,6 +7,7 @@ const {
     createProduct,
     updateProduct,
     createReview,
+    getTopProducts,
 } = require('../controllers/productControllers');
 const { authorize, isAdmin } = require('../utils/authorization');
 const {
@@ -21,6 +22,8 @@ router
     .route('/')
     .get(getProducts)
     .post(celebrate(headerValidator), authorize, isAdmin, createProduct);
+
+router.route('/top').get(getTopProducts);
 
 router
     .route('/:id/reviews')
