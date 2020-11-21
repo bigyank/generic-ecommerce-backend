@@ -8,7 +8,6 @@ const colors = require('colors');
 require('express-async-errors');
 const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
-const cors = require('cors');
 
 // routes
 const productRoute = require('./routes/productRoutes');
@@ -24,8 +23,6 @@ const {
 const limiter = require('./utils/rateLimiter');
 
 const app = express();
-
-app.use(cors());
 
 /**
  * parse application/json
@@ -57,9 +54,9 @@ app.use('/api/upload', uploadRoute);
 
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, './build')));
-}
+// if (process.env.NODE_ENV === 'production') {
+app.use(express.static(path.join(__dirname, './build')));
+// }
 
 app.use(unknownEndPointHandler);
 app.use(errorHandler);
